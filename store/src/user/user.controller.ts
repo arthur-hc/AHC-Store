@@ -1,18 +1,18 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
-import { UserRepository } from './user.repository';
+import { UserService } from './user.service';
 
 @Controller('/user')
 export class UserController {
-  constructor(private readonly userRepository: UserRepository) {}
+  constructor(private readonly userService: UserService) {}
 
   @Post()
   async create(@Body() userData) {
-    await this.userRepository.save(userData);
+    await this.userService.create(userData);
     return { status: 'User created', userData };
   }
 
   @Get()
   async list() {
-    return await this.userRepository.list();
+    return await this.userService.findAll();
   }
 }
