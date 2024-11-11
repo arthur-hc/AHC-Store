@@ -1,36 +1,37 @@
 import { Injectable } from '@nestjs/common';
+import { CreateProductDto } from './dto/create-product.dto';
 
 @Injectable()
 export class ProductRepository {
   private readonly products = [
     {
-      nome: 'Figura de ação Marvel Homem Aranha Olympus Homem Aranha E6358 de Hasbro Classic',
-      valor: 70.0,
-      quantidadeDisponivel: 10,
-      descricao: 'Produto novo, bem acabado, alegria para colecionadores',
-      caracteristicas: [
+      name: 'Figura de ação Marvel Homem Aranha Olympus Homem Aranha E6358 de Hasbro Classic',
+      price: 70.0,
+      availableQuantity: 10,
+      description: 'Produto novo, bem acabado, alegria para colecionadores',
+      features: [
         {
-          nome: 'Fabricante',
-          descricao: 'Iron Studios',
+          name: 'Fabricante',
+          description: 'Iron Studios',
         },
         {
-          nome: 'material',
-          descricao: 'Plástico',
+          name: 'Material',
+          description: 'Plástico',
         },
       ],
-      imagens: [
+      images: [
         {
           url: 'https://i.imgur.com/dwDZICq.jpg',
-          descricao: 'Imagem do Homem Aranha',
+          description: 'Imagem do Homem Aranha',
         },
       ],
-      categoria: 'Colecionáveis',
-      dataCriacao: '2022-10-12T14:22:53.496Z',
-      dataAtualizacao: '2022-10-12T14:22:53.496Z',
+      category: 'Colecionáveis',
+      creationDate: '2022-10-12T14:22:53.496Z',
+      updateDate: '2022-10-12T14:22:53.496Z',
     },
   ];
 
-  async save(product) {
+  async save(product: CreateProductDto) {
     this.products.push(product);
   }
 
