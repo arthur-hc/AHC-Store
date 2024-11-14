@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateUserdDto } from './dto/createUser.dto';
 import { UserEntity } from './user.entity';
 import { v4 as uuid } from 'uuid';
+import { UpdateUserdDto } from './dto/updateUser.dto';
 
 @Injectable()
 export class UserRepository {
@@ -27,5 +28,16 @@ export class UserRepository {
 
   isEmailRegistered(email: string): boolean {
     return !!this.users.find((user) => user.email === email);
+  }
+
+  updateById(id: string, userNewData: UpdateUserdDto): UserEntity | undefined {
+    const userFound = this.users.find((user) => user.id === id);
+
+    if (!userFound) {
+      throw new Error('User not found');
+    }
+
+    Object.assign(userFound, userNewData);
+    return userFound;
   }
 }
