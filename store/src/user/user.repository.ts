@@ -40,4 +40,14 @@ export class UserRepository {
     Object.assign(userFound, userNewData);
     return userFound;
   }
+
+  deleteById(id: string): void {
+    const userFoundIndex = this.users.findIndex((user) => user.id === id);
+
+    if (userFoundIndex === -1) {
+      throw new Error('User not found');
+    }
+
+    this.users.splice(userFoundIndex, 1);
+  }
 }
