@@ -4,6 +4,9 @@ Hi! This is a project from store based on Alura Course Learning
 Tecnologies
 - Typescript
 - NestJS
+- Docker
+- Postgresql
+- TypeOrm
 
 To Do Features:
   - Users
