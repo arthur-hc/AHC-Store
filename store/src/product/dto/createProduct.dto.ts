@@ -4,6 +4,7 @@ import {
   IsArray,
   ValidateNested,
   IsDateString,
+  IsNotEmpty,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 
@@ -25,15 +26,23 @@ class ImageDto {
 
 export class CreateProductDto {
   @IsString()
+  @IsNotEmpty()
   name: string;
 
   @IsNumber()
+  @IsNotEmpty()
+  userId: string;
+
+  @IsNumber()
+  @IsNotEmpty()
   price: number;
 
   @IsNumber()
-  availableQuantity: number;
+  @IsNotEmpty()
+  quantity: number;
 
   @IsString()
+  @IsNotEmpty()
   description: string;
 
   @IsArray()
@@ -47,6 +56,7 @@ export class CreateProductDto {
   images: ImageDto[];
 
   @IsString()
+  @IsNotEmpty()
   category: string;
 
   @IsDateString()
