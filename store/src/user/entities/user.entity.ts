@@ -1,8 +1,10 @@
 import {
   Column,
   CreateDateColumn,
+  DeleteDateColumn,
   Entity,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 
 @Entity({ name: 'users' })
@@ -22,9 +24,9 @@ export class UserEntity {
   @CreateDateColumn({ name: 'create_at' })
   createAt?: Date;
 
-  @CreateDateColumn({ name: 'update_at' })
+  @UpdateDateColumn({ name: 'update_at' })
   updateAt?: Date;
 
-  @CreateDateColumn({ name: 'delete_at' })
+  @DeleteDateColumn({ name: 'delete_at' })
   deleteAt?: Date;
 }
