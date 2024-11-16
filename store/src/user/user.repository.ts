@@ -1,53 +1,33 @@
 import { Injectable } from '@nestjs/common';
-import { CreateUserdDto } from './dto/createUser.dto';
-import { UserEntity } from './user.entity';
-import { v4 as uuid } from 'uuid';
-import { UpdateUserdDto } from './dto/updateUser.dto';
+import { DataSource, DeleteResult, Repository, UpdateResult } from 'typeorm';
+import { User } from './entities/user.entity';
+import { UserFilterOptionsDto } from './dto/userFilterOptions.dto';
 
 @Injectable()
 export class UserRepository {
-  private readonly users: UserEntity[] = [];
+  private readonly repository: Repository<User>;
 
-  save(user: CreateUserdDto): UserEntity {
-    const newId = uuid();
-
-    const userEntity = new UserEntity(
-      user.name,
-      user.email,
-      user.password,
-      newId,
-    );
-    this.users.push(userEntity);
-
-    return userEntity;
+  constructor(dataSource: DataSource) {
+    this.repository = dataSource.getRepository(User);
   }
 
-  list(): UserEntity[] {
-    return this.users;
+  async findById(id: string): Promise<User> {
+    return this.repository.findOne({ where: { id } });
   }
 
-  isEmailRegistered(email: string): boolean {
-    return !!this.users.find((user) => user.email === email);
+  async findAll(where?: UserFilterOptionsDto): Promise<User[]> {
+    return this.repository.find({ where });
   }
 
-  updateById(id: string, userNewData: UpdateUserdDto): UserEntity | undefined {
-    const userFound = this.users.find((user) => user.id === id);
-
-    if (!userFound) {
-      throw new Error('User not found');
-    }
-
-    Object.assign(userFound, userNewData);
-    return userFound;
+  async save(userData: User): Promise<User> {
+    return this.repository.save(userData);
   }
 
-  deleteById(id: string): void {
-    const userFoundIndex = this.users.findIndex((user) => user.id === id);
+  async update(id: string, productData: Partial<User>): Promise<UpdateResult> {
+    return this.repository.update(id, productData);
+  }
 
-    if (userFoundIndex === -1) {
-      throw new Error('User not found');
-    }
-
-    this.users.splice(userFoundIndex, 1);
+  async delete(id: string): Promise<DeleteResult> {
+    return this.repository.delete(id);
   }
 }

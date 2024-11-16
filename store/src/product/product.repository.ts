@@ -1,41 +1,36 @@
 import { Injectable } from '@nestjs/common';
-import { CreateProductDto } from './dto/createProduct.dto';
+import { DataSource, DeleteResult, Repository, UpdateResult } from 'typeorm';
+import { Product } from './entities/product.entity';
+import { productFilterOptionsDto } from './dto/productFilterOptions.dto';
 
 @Injectable()
 export class ProductRepository {
-  private readonly products = [
-    {
-      name: 'Figura de ação Marvel Homem Aranha Olympus Homem Aranha E6358 de Hasbro Classic',
-      price: 70.0,
-      availableQuantity: 10,
-      description: 'Produto novo, bem acabado, alegria para colecionadores',
-      features: [
-        {
-          name: 'Fabricante',
-          description: 'Iron Studios',
-        },
-        {
-          name: 'Material',
-          description: 'Plástico',
-        },
-      ],
-      images: [
-        {
-          url: 'https://i.imgur.com/dwDZICq.jpg',
-          description: 'Imagem do Homem Aranha',
-        },
-      ],
-      category: 'Colecionáveis',
-      creationDate: '2022-10-12T14:22:53.496Z',
-      updateDate: '2022-10-12T14:22:53.496Z',
-    },
-  ];
+  private readonly repository: Repository<Product>;
 
-  async save(product: CreateProductDto) {
-    this.products.push(product);
+  constructor(dataSource: DataSource) {
+    this.repository = dataSource.getRepository(Product);
   }
 
-  async list() {
-    return this.products;
+  async findById(id: string): Promise<Product> {
+    return this.repository.findOne({ where: { id } });
+  }
+
+  async findAll(where?: productFilterOptionsDto): Promise<Product[]> {
+    return this.repository.find({ where });
+  }
+
+  async save(productData: Product): Promise<Product> {
+    return this.repository.save(productData);
+  }
+
+  async update(
+    id: string,
+    productData: Partial<Product>,
+  ): Promise<UpdateResult> {
+    return this.repository.update(id, productData);
+  }
+
+  async delete(id: string): Promise<DeleteResult> {
+    return this.repository.delete(id);
   }
 }

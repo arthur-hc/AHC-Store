@@ -2,33 +2,34 @@ import { Injectable } from '@nestjs/common';
 import { CreateUserdDto } from './dto/createUser.dto';
 import { ListUserDto } from './dto/listUser.dto';
 import { UpdateUserdDto } from './dto/updateUser.dto';
+import { UserFilterOptionsDto } from './dto/userFilterOptions.dto';
 import { UserRepository } from './user.repository';
+import { DeleteResult, UpdateResult } from 'typeorm';
 
 @Injectable()
 export class UserService {
   constructor(private readonly userRepository: UserRepository) {}
+
   async create(userData: CreateUserdDto): Promise<ListUserDto> {
-    const newUser = this.userRepository.save(userData);
-
-    return new ListUserDto(newUser.id, newUser.name, newUser.email);
+    const user = await this.userRepository.save(userData);
+    return new ListUserDto(user);
   }
 
-  async findAll(): Promise<ListUserDto[]> {
-    return this.userRepository.list().map((user) => {
-      return new ListUserDto(user.id, user.name, user.email);
-    });
+  async findById(id: string): Promise<ListUserDto> {
+    const user = await this.userRepository.findById(id);
+    return new ListUserDto(user);
   }
 
-  async updateById(
-    id: string,
-    userNewData: UpdateUserdDto,
-  ): Promise<ListUserDto> {
-    const user = this.userRepository.updateById(id, userNewData);
-
-    return new ListUserDto(user.id, user.name, user.email);
+  async findAll(filters: UserFilterOptionsDto): Promise<ListUserDto[]> {
+    const users = await this.userRepository.findAll(filters);
+    return users.map((user) => new ListUserDto(user));
   }
 
-  async deleteById(id: string): Promise<void> {
-    this.userRepository.deleteById(id);
+  async update(id: string, userData: UpdateUserdDto): Promise<UpdateResult> {
+    return await this.userRepository.update(id, userData);
+  }
+
+  async delete(id: string): Promise<DeleteResult> {
+    return await this.userRepository.delete(id);
   }
 }

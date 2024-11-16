@@ -4,7 +4,7 @@ import {
   IsArray,
   ValidateNested,
   IsDateString,
-  IsNotEmpty,
+  IsOptional,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 
@@ -24,44 +24,48 @@ class ImageDto {
   description: string;
 }
 
-export class CreateProductDto {
+export class UpdateProductDto {
   @IsString()
-  @IsNotEmpty()
-  name: string;
+  @IsOptional()
+  name?: string;
 
   @IsNumber()
-  @IsNotEmpty()
-  userId: string;
+  @IsOptional()
+  userId?: string;
 
   @IsNumber()
-  @IsNotEmpty()
-  price: number;
+  @IsOptional()
+  price?: number;
 
   @IsNumber()
-  @IsNotEmpty()
-  quantity: number;
+  @IsOptional()
+  quantity?: number;
 
   @IsString()
-  @IsNotEmpty()
-  description: string;
+  @IsOptional()
+  description?: string;
 
   @IsArray()
   @ValidateNested({ each: true })
+  @IsOptional()
   @Type(() => FeatureDto)
-  features: FeatureDto[];
+  features?: FeatureDto[];
 
   @IsArray()
   @ValidateNested({ each: true })
+  @IsOptional()
   @Type(() => ImageDto)
-  images: ImageDto[];
+  images?: ImageDto[];
 
   @IsString()
-  @IsNotEmpty()
-  category: string;
+  @IsOptional()
+  category?: string;
 
   @IsDateString()
-  creationDate: string;
+  @IsOptional()
+  creationDate?: string;
 
   @IsDateString()
-  updateDate: string;
+  @IsOptional()
+  updateDate?: string;
 }
