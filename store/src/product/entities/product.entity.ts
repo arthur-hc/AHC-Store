@@ -12,7 +12,7 @@ export class Product {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ name: 'user_id', length: 100, nullable: false })
+  @Column({ name: 'user_id', nullable: false })
   userId: number;
 
   @Column({ name: 'name', length: 100, nullable: false })
