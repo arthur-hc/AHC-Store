@@ -13,12 +13,12 @@ To Do Features:
      - [x] Read
      - [x] Update
      - [x] Delete
-     - [ ] Connect with DB
+     - [x] Connect with DB
   - Products
      - [ ] Tests
-     - [ ] Entity
+     - [x] Entity
      - [x] Create
      - [x] Read
-     - [ ] Update
-     - [ ] Delete
-     - [ ] Connect with DB
+     - [x] Update
+     - [x] Delete
+     - [x] Connect with DB
