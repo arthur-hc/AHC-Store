@@ -1,12 +1,12 @@
-import {
-  IsString,
-  IsNumber,
-  IsArray,
-  ValidateNested,
-  IsDateString,
-  IsOptional,
-} from 'class-validator';
 import { Type } from 'class-transformer';
+import {
+  IsArray,
+  IsDateString,
+  IsInt,
+  IsOptional,
+  IsString,
+  ValidateNested,
+} from 'class-validator';
 
 class FeatureDto {
   @IsString()
@@ -29,15 +29,15 @@ export class UpdateProductDto {
   @IsOptional()
   name?: string;
 
-  @IsNumber()
+  @IsString()
   @IsOptional()
   userId?: string;
 
-  @IsNumber()
+  @IsInt()
   @IsOptional()
   price?: number;
 
-  @IsNumber()
+  @IsInt()
   @IsOptional()
   quantity?: number;
 

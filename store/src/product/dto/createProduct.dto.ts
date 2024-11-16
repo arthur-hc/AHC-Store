@@ -1,12 +1,12 @@
+import { Type } from 'class-transformer';
 import {
-  IsString,
-  IsNumber,
   IsArray,
-  ValidateNested,
   IsDateString,
   IsNotEmpty,
+  IsNumber,
+  IsString,
+  ValidateNested,
 } from 'class-validator';
-import { Type } from 'class-transformer';
 
 class FeatureDto {
   @IsString()
@@ -29,7 +29,7 @@ export class CreateProductDto {
   @IsNotEmpty()
   name: string;
 
-  @IsNumber()
+  @IsString()
   @IsNotEmpty()
   userId: string;
 
