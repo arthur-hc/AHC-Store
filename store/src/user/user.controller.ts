@@ -6,11 +6,14 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { CreateUserdDto } from './dto/createUser.dto';
 import { UpdateUserdDto } from './dto/updateUser.dto';
 import { UserService } from './user.service';
 import { ListUserDto } from './dto/listUser.dto';
+import { UserFilterOptionsDto } from './dto/userFilterOptions.dto';
+import { DeleteResult, UpdateResult } from 'typeorm';
 
 @Controller('/user')
 export class UserController {
@@ -21,21 +24,28 @@ export class UserController {
     return await this.userService.create(userData);
   }
 
+  @Get('/:id')
+  async findById(@Param('id') id: string): Promise<ListUserDto> {
+    return await this.userService.findById(id);
+  }
+
   @Get()
-  async list(): Promise<ListUserDto[]> {
-    return await this.userService.findAll();
+  async findAll(
+    @Query() filters: UserFilterOptionsDto,
+  ): Promise<ListUserDto[]> {
+    return await this.userService.findAll(filters);
   }
 
   @Patch('/:id')
   async update(
     @Param('id') id: string,
-    @Body() userNewData: UpdateUserdDto,
-  ): Promise<ListUserDto> {
-    return await this.userService.updateById(id, userNewData);
+    @Body() userData: UpdateUserdDto,
+  ): Promise<UpdateResult> {
+    return await this.userService.update(id, userData);
   }
 
   @Delete('/:id')
-  async delete(@Param('id') id: string): Promise<void> {
-    await this.userService.deleteById(id);
+  async delete(@Param('id') id: string): Promise<DeleteResult> {
+    return await this.userService.delete(id);
   }
 }
