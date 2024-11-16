@@ -1,28 +1,23 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUserdDto } from './dto/createUser.dto';
-import { UserEntity } from './entities/user.entity';
+import { User } from './entities/user.entity';
 import { v4 as uuid } from 'uuid';
 import { UpdateUserdDto } from './dto/updateUser.dto';
 
 @Injectable()
 export class UserRepository {
-  private readonly users: UserEntity[] = [];
+  private readonly users: User[] = [];
 
-  save(user: CreateUserdDto): UserEntity {
+  save(user: CreateUserdDto): User {
     const newId = uuid();
 
-    const userEntity = new UserEntity(
-      user.name,
-      user.email,
-      user.password,
-      newId,
-    );
+    const userEntity = new User(user.name, user.email, user.password, newId);
     this.users.push(userEntity);
 
     return userEntity;
   }
 
-  list(): UserEntity[] {
+  list(): User[] {
     return this.users;
   }
 
@@ -30,7 +25,7 @@ export class UserRepository {
     return !!this.users.find((user) => user.email === email);
   }
 
-  updateById(id: string, userNewData: UpdateUserdDto): UserEntity | undefined {
+  updateById(id: string, userNewData: UpdateUserdDto): User | undefined {
     const userFound = this.users.find((user) => user.id === id);
 
     if (!userFound) {
