@@ -10,10 +10,10 @@ import {
 @Entity({ name: 'products' })
 export class Product {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id?: string;
 
   @Column({ name: 'user_id', nullable: false })
-  userId: number;
+  userId: string;
 
   @Column({ name: 'name', length: 100, nullable: false })
   name: string;
@@ -22,7 +22,7 @@ export class Product {
   price: number;
 
   @Column({ name: 'quantity', nullable: false })
-  availableQuantity: number;
+  quantity: number;
 
   @Column({ name: 'description', length: 100, nullable: false })
   description: string;

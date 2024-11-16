@@ -4,14 +4,14 @@ import { IsUniqueEmail } from '../validation/uniqueEmailValidator';
 export class UpdateUserdDto {
   @IsString()
   @IsOptional()
-  name: string;
+  name?: string;
 
   @IsEmail()
   @IsOptional()
   @IsUniqueEmail({ message: 'Email already in use' })
-  email: string;
+  email?: string;
 
   @MinLength(6)
   @IsOptional()
-  password: string;
+  password?: string;
 }

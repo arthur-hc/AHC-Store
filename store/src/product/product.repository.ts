@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { DataSource, Repository } from 'typeorm';
+import { DataSource, DeleteResult, Repository, UpdateResult } from 'typeorm';
 import { Product } from './entities/product.entity';
+import { productFilterOptionsDto } from './dto/productFilterOptions.dto';
 
 @Injectable()
 export class ProductRepository {
@@ -10,23 +11,26 @@ export class ProductRepository {
     this.repository = dataSource.getRepository(Product);
   }
 
-  async findById(id: string) {
-    return this.repository.find({ where: { id } });
+  async findById(id: string): Promise<Product> {
+    return this.repository.findOne({ where: { id } });
   }
 
-  async findAll() {
-    return this.repository.find();
+  async findAll(where?: productFilterOptionsDto): Promise<Product[]> {
+    return this.repository.find({ where });
   }
 
-  async save(productData: Product) {
+  async save(productData: Product): Promise<Product> {
     return this.repository.save(productData);
   }
 
-  async update(id: string, productData: Partial<Product>) {
+  async update(
+    id: string,
+    productData: Partial<Product>,
+  ): Promise<UpdateResult> {
     return this.repository.update(id, productData);
   }
 
-  async delete(id: string) {
+  async delete(id: string): Promise<DeleteResult> {
     return this.repository.delete(id);
   }
 }
