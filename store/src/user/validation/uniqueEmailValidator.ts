@@ -11,10 +11,10 @@ import { UserRepository } from '../user.repository';
 @ValidatorConstraint({ async: true })
 export class UniqueEmailValidator implements ValidatorConstraintInterface {
   constructor(private readonly userRepository: UserRepository) {}
-  async validate(value: string): Promise<boolean> {
-    const emailInUse = await this.userRepository.isEmailRegistered(value);
+  async validate(email: string): Promise<boolean> {
+    const emailInUse = await this.userRepository.findAll({ email });
 
-    const isEmailAllowed = !emailInUse;
+    const isEmailAllowed = emailInUse.length === 0;
     return isEmailAllowed;
   }
 }
