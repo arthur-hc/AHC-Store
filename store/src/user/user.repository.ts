@@ -23,14 +23,11 @@ export class UserRepository {
     return this.repository.save(userData);
   }
 
-  async updateById(
-    id: string,
-    productData: Partial<User>,
-  ): Promise<UpdateResult> {
+  async update(id: string, productData: Partial<User>): Promise<UpdateResult> {
     return this.repository.update(id, productData);
   }
 
-  async deleteById(id: string): Promise<DeleteResult> {
+  async delete(id: string): Promise<DeleteResult> {
     return this.repository.delete(id);
   }
 }
