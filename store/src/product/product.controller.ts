@@ -8,13 +8,12 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
-import { ProductService } from './product.service';
+import { DeleteResult, UpdateResult } from 'typeorm';
 import { CreateProductDto } from './dto/createProduct.dto';
-import { Product } from './entities/product.entity';
+import { ListProductDto } from './dto/listProduct.dto';
 import { productFilterOptionsDto } from './dto/productFilterOptions.dto';
 import { UpdateProductDto } from './dto/updateProduct.dto';
-import { DeleteResult, UpdateResult } from 'typeorm';
-import { ListProductDto } from './dto/listProduct.dto';
+import { ProductService } from './product.service';
 
 @Controller('product')
 export class ProductController {
