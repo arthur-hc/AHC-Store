@@ -1,4 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Product } from './product.entity';
 
 @Entity({ name: 'product_features' })
 export class ProductFeature {
@@ -10,4 +17,8 @@ export class ProductFeature {
 
   @Column({ name: 'description', length: 100, nullable: false })
   description: string;
+
+  @ManyToOne(() => Product, (product) => product.features)
+  @JoinColumn({ name: 'product_id' })
+  product: Product;
 }

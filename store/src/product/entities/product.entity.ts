@@ -3,9 +3,11 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { ProductFeature } from './productFeature.entity';
 
 @Entity({ name: 'products' })
 export class Product {
@@ -27,7 +29,14 @@ export class Product {
   @Column({ name: 'description', length: 100, nullable: false })
   description: string;
 
-  // features: Feature[];
+  @OneToMany(() => ProductFeature, (feature) => feature.product, {
+    cascade: true,
+    eager: true,
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
+  features: ProductFeature[];
+
   // images: Image[];
 
   @Column({ name: 'category', length: 100, nullable: false })

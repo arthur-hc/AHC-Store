@@ -7,14 +7,7 @@ import {
   IsString,
   ValidateNested,
 } from 'class-validator';
-
-class FeatureDto {
-  @IsString()
-  name: string;
-
-  @IsString()
-  description: string;
-}
+import { ProductFeature } from '../entities/productFeature.entity';
 
 class ImageDto {
   @IsString()
@@ -47,8 +40,8 @@ export class CreateProductDto {
 
   @IsArray()
   @ValidateNested({ each: true })
-  @Type(() => FeatureDto)
-  features: FeatureDto[];
+  @Type(() => ProductFeature)
+  features: ProductFeature[];
 
   @IsArray()
   @ValidateNested({ each: true })
