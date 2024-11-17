@@ -1,24 +1,27 @@
 import { Injectable } from '@nestjs/common';
-import { ProductRepository } from './product.repository';
+import { DeleteResult, UpdateResult } from 'typeorm';
 import { CreateProductDto } from './dto/createProduct.dto';
-import { Product } from './entities/product.entity';
+import { ListProductDto } from './dto/listProduct.dto';
 import { productFilterOptionsDto } from './dto/productFilterOptions.dto';
 import { UpdateProductDto } from './dto/updateProduct.dto';
-import { DeleteResult, UpdateResult } from 'typeorm';
+import { ProductRepository } from './product.repository';
 
 @Injectable()
 export class ProductService {
   constructor(private readonly productRepository: ProductRepository) {}
-  async create(productData: CreateProductDto): Promise<Product> {
-    return await this.productRepository.save(productData);
+  async create(productData: CreateProductDto): Promise<ListProductDto> {
+    const product = await this.productRepository.save(productData);
+    return new ListProductDto(product);
   }
 
-  async findById(id: string): Promise<Product> {
-    return await this.productRepository.findById(id);
+  async findById(id: string): Promise<ListProductDto> {
+    const product = await this.productRepository.findById(id);
+    return new ListProductDto(product);
   }
 
-  async findAll(where?: productFilterOptionsDto): Promise<Product[]> {
-    return await this.productRepository.findAll(where);
+  async findAll(where?: productFilterOptionsDto): Promise<ListProductDto[]> {
+    const products = await this.productRepository.findAll(where);
+    return products.map((product) => new ListProductDto(product));
   }
 
   async update(

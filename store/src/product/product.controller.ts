@@ -8,29 +8,31 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
-import { ProductService } from './product.service';
+import { DeleteResult, UpdateResult } from 'typeorm';
 import { CreateProductDto } from './dto/createProduct.dto';
-import { Product } from './entities/product.entity';
+import { ListProductDto } from './dto/listProduct.dto';
 import { productFilterOptionsDto } from './dto/productFilterOptions.dto';
 import { UpdateProductDto } from './dto/updateProduct.dto';
-import { DeleteResult, UpdateResult } from 'typeorm';
+import { ProductService } from './product.service';
 
 @Controller('product')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @Post()
-  async create(@Body() productData: CreateProductDto): Promise<Product> {
+  async create(@Body() productData: CreateProductDto): Promise<ListProductDto> {
     return await this.productService.create(productData);
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string): Promise<Product> {
+  async findOne(@Param('id') id: string): Promise<ListProductDto> {
     return await this.productService.findById(id);
   }
 
   @Get()
-  async findAll(@Query() filters: productFilterOptionsDto): Promise<Product[]> {
+  async findAll(
+    @Query() filters: productFilterOptionsDto,
+  ): Promise<ListProductDto[]> {
     return await this.productService.findAll(filters);
   }
 

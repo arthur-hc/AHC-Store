@@ -1,8 +1,10 @@
+import { Product } from 'src/product/entities/product.entity';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -29,4 +31,11 @@ export class User {
 
   @DeleteDateColumn({ name: 'delete_at' })
   deleteAt?: Date;
+
+  @OneToMany(() => Product, (product) => product.user, {
+    cascade: true,
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
+  })
+  products?: Product[];
 }

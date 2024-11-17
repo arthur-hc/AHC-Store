@@ -1,4 +1,4 @@
-import { Type } from 'class-transformer';
+import { Expose, Transform, Type } from 'class-transformer';
 import {
   IsArray,
   IsDateString,
@@ -7,31 +7,26 @@ import {
   IsString,
   ValidateNested,
 } from 'class-validator';
-
-class FeatureDto {
-  @IsString()
-  name: string;
-
-  @IsString()
-  description: string;
-}
-
-class ImageDto {
-  @IsString()
-  url: string;
-
-  @IsString()
-  description: string;
-}
+import { User } from 'src/user/entities/user.entity';
+import { ProductFeatureDto } from './productFeature.dto';
+import { ProductImageDto } from './productImage.dto';
 
 export class CreateProductDto {
   @IsString()
   @IsNotEmpty()
   name: string;
 
-  @IsString()
+  @Expose({ name: 'userId', toClassOnly: true })
   @IsNotEmpty()
-  userId: string;
+  @Transform(
+    ({ value }) => {
+      const user = new User();
+      user.id = value;
+      return user;
+    },
+    { toClassOnly: true },
+  )
+  user: User;
 
   @IsNumber()
   @IsNotEmpty()
@@ -47,13 +42,13 @@ export class CreateProductDto {
 
   @IsArray()
   @ValidateNested({ each: true })
-  @Type(() => FeatureDto)
-  features: FeatureDto[];
+  @Type(() => ProductFeatureDto)
+  features: ProductFeatureDto[];
 
   @IsArray()
   @ValidateNested({ each: true })
-  @Type(() => ImageDto)
-  images: ImageDto[];
+  @Type(() => ProductImageDto)
+  images: ProductImageDto[];
 
   @IsString()
   @IsNotEmpty()
