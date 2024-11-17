@@ -1,4 +1,4 @@
-import { Type } from 'class-transformer';
+import { Expose, Transform, Type } from 'class-transformer';
 import {
   IsArray,
   IsDateString,
@@ -7,6 +7,7 @@ import {
   IsString,
   ValidateNested,
 } from 'class-validator';
+import { User } from 'src/user/entities/user.entity';
 import { ProductFeatureDto } from './productFeature.dto';
 import { ProductImageDto } from './productImage.dto';
 
@@ -15,9 +16,17 @@ export class CreateProductDto {
   @IsNotEmpty()
   name: string;
 
-  @IsString()
+  @Expose({ name: 'userId', toClassOnly: true })
   @IsNotEmpty()
-  userId: string;
+  @Transform(
+    ({ value }) => {
+      const user = new User();
+      user.id = value;
+      return user;
+    },
+    { toClassOnly: true },
+  )
+  user: User;
 
   @IsNumber()
   @IsNotEmpty()

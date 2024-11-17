@@ -1,9 +1,11 @@
+import { User } from 'src/user/entities/user.entity';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  OneToMany,
+  JoinColumn,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -16,8 +18,14 @@ export class Product {
   @PrimaryGeneratedColumn('uuid')
   id?: string;
 
-  @Column({ name: 'user_id', nullable: false })
-  userId: string;
+  @ManyToOne(() => User, (user) => user.products, {
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
+    nullable: false,
+    eager: true,
+  })
+  @JoinColumn({ name: 'user_id' })
+  user: User;
 
   @Column({ name: 'name', length: 100, nullable: false })
   name: string;
