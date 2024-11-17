@@ -7,22 +7,8 @@ import {
   IsString,
   ValidateNested,
 } from 'class-validator';
-
-class FeatureDto {
-  @IsString()
-  name: string;
-
-  @IsString()
-  description: string;
-}
-
-class ImageDto {
-  @IsString()
-  url: string;
-
-  @IsString()
-  description: string;
-}
+import { ProductFeatureDto } from './productFeature.dto';
+import { ProductImageDto } from './productImage.dto';
 
 export class CreateProductDto {
   @IsString()
@@ -47,13 +33,13 @@ export class CreateProductDto {
 
   @IsArray()
   @ValidateNested({ each: true })
-  @Type(() => FeatureDto)
-  features: FeatureDto[];
+  @Type(() => ProductFeatureDto)
+  features: ProductFeatureDto[];
 
   @IsArray()
   @ValidateNested({ each: true })
-  @Type(() => ImageDto)
-  images: ImageDto[];
+  @Type(() => ProductImageDto)
+  images: ProductImageDto[];
 
   @IsString()
   @IsNotEmpty()
