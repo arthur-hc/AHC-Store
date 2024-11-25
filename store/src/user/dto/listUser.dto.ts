@@ -1,4 +1,4 @@
-import { Product } from 'src/product/entities/product.entity';
+import { Product } from '../../product/entities/product.entity';
 import { User } from '../entities/user.entity';
 
 export class ListUserDto {

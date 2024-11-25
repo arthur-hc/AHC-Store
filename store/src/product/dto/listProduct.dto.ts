@@ -1,4 +1,4 @@
-import { ListUserDto } from 'src/user/dto/listUser.dto';
+import { ListUserDto } from '../../user/dto/listUser.dto';
 import { Product } from '../entities/product.entity';
 import { ProductFeature } from '../entities/productFeature.entity';
 import { ProductImage } from '../entities/productImage.entity';
