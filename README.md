@@ -11,6 +11,7 @@ Tecnologies
 Dependences to run:
 
 - Docker
+- Typeorm
 
 How run this project:
 
@@ -33,8 +34,8 @@ How run this project:
 How run Typeorm CLI features:
 
 1. ➡️ search typeorm command in package.json.
-2. ➡️ use directly or yarn (or npm run) + typeorm -d src/config/db/data-source-cli.ts + command
-3. ➡️ example: typeorm-ts-node-commonjs -d src/config/db/data-source-cli.ts migration:show
+2. ➡️ use directly or yarn (or npm run) + typeorm + command
+3. ➡️ example: yarn typeorm migration:show
 
 To Do Features:
 
