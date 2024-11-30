@@ -7,9 +7,9 @@ import {
   IsString,
   ValidateNested,
 } from 'class-validator';
-import { User } from 'src/user/entities/user.entity';
 import { ProductFeatureDto } from './productFeature.dto';
 import { ProductImageDto } from './productImage.dto';
+import { User } from '../../user/entities/user.entity';
 
 export class CreateProductDto {
   @IsString()

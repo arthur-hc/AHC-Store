@@ -1,6 +1,7 @@
 Hi! This project is based on Alura Course. It aims develop a Rest API.
 
 Tecnologies
+
 - Typescript
 - NestJS
 - Docker
@@ -8,9 +9,12 @@ Tecnologies
 - TypeOrm
 
 Dependences to run:
+
 - Docker
+- Typeorm
 
 How run this project:
+
 1. ➡️ git clone https://github.com/arthur-hc/AHC-Store.git
 2. ➡️ cd AHC-Store/store
 3. ➡️ yarn
@@ -21,27 +25,33 @@ How run this project:
    - DB_PASSWORD (suggestion root)
    - DB_NAME (suggestion db_store)
    - DB_ADMIN_EMAIL (suggestion admin@root.com)
-6. ➡️ docker-compose up -d
-7. open in browser http://localhost:8081/
-8. use credentials defined in env to access
-9. create db with the same DB_NAME defined in env
-10. ➡️ yarn start:dev
+5. ➡️ docker-compose up -d
+6. open in browser http://localhost:8081/
+7. use credentials defined in env to access
+8. create db with the same DB_NAME defined in env
+9. ➡️ yarn start:dev
+
+How run Typeorm CLI features:
+
+1. ➡️ search typeorm command in package.json.
+2. ➡️ use directly or yarn (or npm run) + typeorm + command
+3. ➡️ example: yarn typeorm migration:show
 
 To Do Features:
-  - Users
-     - [ ] Tests
-     - [x] Entity
-     - [x] Create
-     - [x] Read
-     - [x] Update
-     - [x] Delete
-     - [x] Connect with DB
-  - Products
-     - [ ] Tests
-     - [x] Entity
-     - [x] Create
-     - [x] Read
-     - [x] Update
-     - [x] Delete
-     - [x] Connect with DB
-   
+
+- Users
+  - [ ] Tests
+  - [x] Entity
+  - [x] Create
+  - [x] Read
+  - [x] Update
+  - [x] Delete
+  - [x] Connect with DB
+- Products
+  - [ ] Tests
+  - [x] Entity
+  - [x] Create
+  - [x] Read
+  - [x] Update
+  - [x] Delete
+  - [x] Connect with DB
