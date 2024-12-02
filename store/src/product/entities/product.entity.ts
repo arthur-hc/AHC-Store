@@ -9,9 +9,10 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { User } from '../../user/entities/user.entity';
 import { ProductFeature } from './productFeature.entity';
 import { ProductImage } from './productImage.entity';
-import { User } from '../../user/entities/user.entity';
+import { OrderItem } from '../../order/entities/orderItem.entity';
 
 @Entity({ name: 'products' })
 export class Product {
@@ -66,4 +67,10 @@ export class Product {
 
   @DeleteDateColumn({ name: 'delete_at' })
   deleteAt?: Date;
+
+  @OneToMany(() => OrderItem, (orderItem) => orderItem.product, {
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
+  })
+  orderItem?: OrderItem;
 }
