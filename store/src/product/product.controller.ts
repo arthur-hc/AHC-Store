@@ -14,6 +14,7 @@ import { ListProductDto } from './dto/listProduct.dto';
 import { ProductFilterOptionsDto } from './dto/productFilterOptions.dto';
 import { UpdateProductDto } from './dto/updateProduct.dto';
 import { ProductService } from './product.service';
+import { UUIDDto } from '../common/dto/UUID.dto';
 
 @Controller('product')
 export class ProductController {
@@ -25,7 +26,7 @@ export class ProductController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string): Promise<ListProductDto> {
+  async findOne(@Param() { id }: UUIDDto): Promise<ListProductDto> {
     return await this.productService.findById(id);
   }
 
@@ -38,14 +39,14 @@ export class ProductController {
 
   @Patch('/:id')
   async update(
-    @Param('id') id: string,
+    @Param() { id }: UUIDDto,
     @Body() productData: UpdateProductDto,
   ): Promise<UpdateResult> {
     return await this.productService.update(id, productData);
   }
 
   @Delete('/:id')
-  async delete(@Param('id') id: string): Promise<DeleteResult> {
+  async delete(@Param() { id }: UUIDDto): Promise<DeleteResult> {
     return await this.productService.delete(id);
   }
 }
