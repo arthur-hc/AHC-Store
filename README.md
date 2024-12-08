@@ -1,4 +1,4 @@
-Hi! This project is based on Alura Course. It aims develop a Rest API.
+Hi! This project aims develop a Store Rest API.
 
 Tecnologies
 
