@@ -1,12 +1,14 @@
 import { Transform } from 'class-transformer';
-import { IsInt, IsOptional, IsString } from 'class-validator';
+import { IsInt, IsOptional, IsString, IsUUID } from 'class-validator';
 
-export class productFilterOptionsDto {
+export class ProductFilterOptionsDto {
   @IsOptional()
   @IsString()
+  @IsUUID()
   id?: string;
 
   @IsOptional()
+  @IsUUID()
   @IsString()
   userId?: string;
 

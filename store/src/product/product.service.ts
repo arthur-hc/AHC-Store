@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { CreateProductDto } from './dto/createProduct.dto';
 import { ListProductDto } from './dto/listProduct.dto';
-import { productFilterOptionsDto } from './dto/productFilterOptions.dto';
+import { ProductFilterOptionsDto } from './dto/productFilterOptions.dto';
 import { UpdateProductDto } from './dto/updateProduct.dto';
 import { ProductRepository } from './product.repository';
 
@@ -19,7 +19,7 @@ export class ProductService {
     return new ListProductDto(product);
   }
 
-  async findAll(where?: productFilterOptionsDto): Promise<ListProductDto[]> {
+  async findAll(where?: ProductFilterOptionsDto): Promise<ListProductDto[]> {
     const products = await this.productRepository.findAll(where);
     return products.map((product) => new ListProductDto(product));
   }

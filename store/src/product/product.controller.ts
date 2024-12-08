@@ -11,7 +11,7 @@ import {
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { CreateProductDto } from './dto/createProduct.dto';
 import { ListProductDto } from './dto/listProduct.dto';
-import { productFilterOptionsDto } from './dto/productFilterOptions.dto';
+import { ProductFilterOptionsDto } from './dto/productFilterOptions.dto';
 import { UpdateProductDto } from './dto/updateProduct.dto';
 import { ProductService } from './product.service';
 
@@ -31,7 +31,7 @@ export class ProductController {
 
   @Get()
   async findAll(
-    @Query() filters: productFilterOptionsDto,
+    @Query() filters: ProductFilterOptionsDto,
   ): Promise<ListProductDto[]> {
     return await this.productService.findAll(filters);
   }
