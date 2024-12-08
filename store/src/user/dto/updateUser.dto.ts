@@ -1,5 +1,5 @@
 import { IsEmail, IsOptional, IsString, MinLength } from 'class-validator';
-import { IsUniqueEmail } from '../validation/uniqueEmailValidator';
+import { IsUniqueEmail } from '../decorators/uniqueEmailValidator.decorator';
 
 export class UpdateUserdDto {
   @IsString()
