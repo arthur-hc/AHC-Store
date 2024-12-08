@@ -8,7 +8,7 @@ import {
 import { Product } from '../../product/entities/product.entity';
 import { Order } from './order.entity';
 
-@Entity({ name: 'orderItems' })
+@Entity({ name: 'order_items' })
 export class OrderItem {
   @PrimaryGeneratedColumn('uuid')
   id?: string;
