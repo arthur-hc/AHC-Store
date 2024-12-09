@@ -1,10 +1,21 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { CreateOrderDto } from './dto/createOrder.dto';
 import { ListOrderDto } from './dto/listOrder.dto';
 import { OrderFilterOptionsDto } from './dto/orderFilterOptions.dto';
 import { Order } from './entities/order.entity';
 import { OrderService } from './order.service';
 import { UUIDDto } from '../common/dto/UUID.dto';
+import { UpdateOrderDto } from './dto/updateOrder.dto';
+import { DeleteResult, UpdateResult } from 'typeorm';
 
 @Controller('order')
 export class OrderController {
@@ -15,7 +26,7 @@ export class OrderController {
     return await this.orderService.create(orderData);
   }
 
-  @Get(':id')
+  @Get('/:id')
   async findOne(@Param() { id }: UUIDDto): Promise<ListOrderDto> {
     return this.orderService.findOne(id);
   }
@@ -27,13 +38,16 @@ export class OrderController {
     return await this.orderService.findAll(filters);
   }
 
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
-  //   return this.orderService.update(+id, updateOrderDto);
-  // }
+  @Patch('/:id')
+  update(
+    @Param() { id }: UUIDDto,
+    @Body() updateOrderDto: UpdateOrderDto,
+  ): Promise<UpdateResult> {
+    return this.orderService.update(id, updateOrderDto);
+  }
 
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.orderService.remove(+id);
-  // }
+  @Delete('/:id')
+  remove(@Param() { id }: UUIDDto): Promise<DeleteResult> {
+    return this.orderService.remove(id);
+  }
 }

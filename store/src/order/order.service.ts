@@ -4,12 +4,14 @@ import { ListOrderDto } from './dto/listOrder.dto';
 import { OrderFilterOptionsDto } from './dto/orderFilterOptions.dto';
 import { Order } from './entities/order.entity';
 import { OrderRepository } from './order.repository';
+import { UpdateOrderDto } from './dto/updateOrder.dto';
+import { DeleteResult, UpdateResult } from 'typeorm';
 
 @Injectable()
 export class OrderService {
   constructor(private readonly orderRepository: OrderRepository) {}
-  async create(createData: CreateOrderDto): Promise<Order> {
-    const order = await this.orderRepository.save(createData);
+  async create(orderData: CreateOrderDto): Promise<Order> {
+    const order = await this.orderRepository.save(orderData);
     return order;
   }
 
@@ -23,11 +25,11 @@ export class OrderService {
     return orders.map((order) => new ListOrderDto(order));
   }
 
-  // async update(id: number, updateOrderDto: UpdateOrderDto) {
-  //   return `This action updates a #${id} order`;
-  // }
+  async update(id: string, orderData: UpdateOrderDto): Promise<UpdateResult> {
+    return await this.orderRepository.update(id, orderData);
+  }
 
-  // async remove(id: number) {
-  //   return `This action removes a #${id} order`;
-  // }
+  async remove(id: string): Promise<DeleteResult> {
+    return await this.orderRepository.delete(id);
+  }
 }
