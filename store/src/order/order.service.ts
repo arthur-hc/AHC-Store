@@ -15,8 +15,9 @@ export class OrderService {
     return order;
   }
 
-  async findOne(id: string): Promise<ListOrderDto> {
+  async findOne(id: string): Promise<ListOrderDto | null> {
     const order = await this.orderRepository.findById(id);
+    if (!order) return null;
     return new ListOrderDto(order);
   }
 

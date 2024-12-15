@@ -14,8 +14,9 @@ export class ProductService {
     return new ListProductDto(product);
   }
 
-  async findById(id: string): Promise<ListProductDto> {
+  async findById(id: string): Promise<ListProductDto | null> {
     const product = await this.productRepository.findById(id);
+    if (!product) return null;
     return new ListProductDto(product);
   }
 

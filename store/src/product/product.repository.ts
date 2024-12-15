@@ -12,7 +12,7 @@ export class ProductRepository {
     this.repository = dataSource.getRepository(Product);
   }
 
-  async findById(id: string): Promise<Product> {
+  async findById(id: string): Promise<Product | null> {
     return this.repository.findOne({ where: { id } });
   }
 

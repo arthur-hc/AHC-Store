@@ -4,11 +4,11 @@ import { OrderItem } from '../entities/orderItem.entity';
 
 export class ListOrderDto {
   constructor(order: Order) {
-    this.id = order.id;
-    this.status = order.status;
-    this.totalValue = order.totalValue;
-    this.user = new ListUserDto(order.user);
-    this.items = order.items;
+    this.id = order?.id;
+    this.status = order?.status;
+    this.totalValue = order?.totalValue;
+    this.user = new ListUserDto(order?.user);
+    this.items = order?.items;
   }
 
   id: string;

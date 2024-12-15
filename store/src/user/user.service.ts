@@ -15,8 +15,9 @@ export class UserService {
     return new ListUserDto(user);
   }
 
-  async findById(id: string): Promise<ListUserDto> {
+  async findById(id: string): Promise<ListUserDto | null> {
     const user = await this.userRepository.findById(id);
+    if (!user) return null;
     return new ListUserDto(user);
   }
 

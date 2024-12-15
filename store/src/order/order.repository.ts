@@ -12,7 +12,7 @@ export class OrderRepository {
     this.repository = dataSource.getRepository(Order);
   }
 
-  async findById(id: string): Promise<Order> {
+  async findById(id: string): Promise<Order | null> {
     return this.repository.findOne({ where: { id } });
   }
 
