@@ -27,7 +27,7 @@ export class OrderController {
   }
 
   @Get('/:id')
-  async findOne(@Param() { id }: UUIDDto): Promise<ListOrderDto> {
+  async findOne(@Param() { id }: UUIDDto): Promise<ListOrderDto | null> {
     return this.orderService.findOne(id);
   }
 

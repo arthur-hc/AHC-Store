@@ -4,14 +4,16 @@ import { OrderItem } from '../entities/orderItem.entity';
 
 export class ListOrderDto {
   constructor(order: Order) {
-    this.id = order?.id;
-    this.status = order?.status;
-    this.totalValue = order?.totalValue;
-    this.user = new ListUserDto(order?.user);
-    this.items = order?.items;
+    const { id, status, totalValue, user, items } = order;
+
+    this.id = id;
+    this.status = status;
+    this.totalValue = totalValue;
+    this.user = new ListUserDto(user);
+    this.items = items;
   }
 
-  id: string;
+  id?: string;
   status: string;
   totalValue: number;
   user: ListUserDto;

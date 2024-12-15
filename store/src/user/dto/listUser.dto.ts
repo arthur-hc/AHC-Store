@@ -10,7 +10,7 @@ export class ListUserDto {
     this.products = products;
   }
 
-  id: string;
+  id?: string;
   name: string;
   email: string;
   products?: Product[];

@@ -26,13 +26,13 @@ export class CreateOrderDto {
   @Transform(({ value }) => {
     return value.map((item: Partial<OrderItem>) => {
       const product = new Product();
-      product.id = item.product.id;
+      product.id = item?.product?.id;
 
       const orderItem = new OrderItem();
       orderItem.product = product;
 
-      orderItem.quantity = item.quantity;
-      orderItem.salePrice = item.salePrice;
+      orderItem.quantity = item?.quantity || 0;
+      orderItem.salePrice = item?.salePrice || 0;
       return orderItem;
     });
   })

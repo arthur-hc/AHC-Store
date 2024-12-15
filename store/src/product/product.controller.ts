@@ -26,7 +26,7 @@ export class ProductController {
   }
 
   @Get('/:id')
-  async findOne(@Param() { id }: UUIDDto): Promise<ListProductDto> {
+  async findOne(@Param() { id }: UUIDDto): Promise<ListProductDto | null> {
     return await this.productService.findById(id);
   }
 
