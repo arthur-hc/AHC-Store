@@ -11,9 +11,10 @@ import {
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { CreateProductDto } from './dto/createProduct.dto';
 import { ListProductDto } from './dto/listProduct.dto';
-import { productFilterOptionsDto } from './dto/productFilterOptions.dto';
+import { ProductFilterOptionsDto } from './dto/productFilterOptions.dto';
 import { UpdateProductDto } from './dto/updateProduct.dto';
 import { ProductService } from './product.service';
+import { UUIDDto } from '../common/dto/UUID.dto';
 
 @Controller('product')
 export class ProductController {
@@ -24,28 +25,28 @@ export class ProductController {
     return await this.productService.create(productData);
   }
 
-  @Get(':id')
-  async findOne(@Param('id') id: string): Promise<ListProductDto> {
+  @Get('/:id')
+  async findOne(@Param() { id }: UUIDDto): Promise<ListProductDto | null> {
     return await this.productService.findById(id);
   }
 
   @Get()
   async findAll(
-    @Query() filters: productFilterOptionsDto,
+    @Query() filters: ProductFilterOptionsDto,
   ): Promise<ListProductDto[]> {
     return await this.productService.findAll(filters);
   }
 
   @Patch('/:id')
   async update(
-    @Param('id') id: string,
+    @Param() { id }: UUIDDto,
     @Body() productData: UpdateProductDto,
   ): Promise<UpdateResult> {
     return await this.productService.update(id, productData);
   }
 
   @Delete('/:id')
-  async delete(@Param('id') id: string): Promise<DeleteResult> {
+  async delete(@Param() { id }: UUIDDto): Promise<DeleteResult> {
     return await this.productService.delete(id);
   }
 }

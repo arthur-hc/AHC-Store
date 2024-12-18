@@ -8,6 +8,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Product } from '../../product/entities/product.entity';
+import { Order } from '../../order/entities/order.entity';
 
 @Entity({ name: 'users' })
 export class User {
@@ -38,4 +39,11 @@ export class User {
     onDelete: 'CASCADE',
   })
   products?: Product[];
+
+  @OneToMany(() => Order, (order) => order.user, {
+    cascade: true,
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
+  })
+  orders?: Order[];
 }

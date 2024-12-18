@@ -11,7 +11,7 @@ export class UserRepository {
     this.repository = dataSource.getRepository(User);
   }
 
-  async findById(id: string): Promise<User> {
+  async findById(id: string): Promise<User | null> {
     return this.repository.findOne({ where: { id } });
   }
 

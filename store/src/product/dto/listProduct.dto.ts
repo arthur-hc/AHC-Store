@@ -14,7 +14,7 @@ export class ListProductDto {
     this.images = images;
     this.user = new ListUserDto(user);
   }
-  id: string;
+  id?: string;
   name: string;
   description: string;
   price: number;

@@ -14,6 +14,7 @@ import { UserService } from './user.service';
 import { ListUserDto } from './dto/listUser.dto';
 import { UserFilterOptionsDto } from './dto/userFilterOptions.dto';
 import { DeleteResult, UpdateResult } from 'typeorm';
+import { UUIDDto } from '../common/dto/UUID.dto';
 
 @Controller('/user')
 export class UserController {
@@ -25,7 +26,7 @@ export class UserController {
   }
 
   @Get('/:id')
-  async findById(@Param('id') id: string): Promise<ListUserDto> {
+  async findById(@Param() { id }: UUIDDto): Promise<ListUserDto | null> {
     return await this.userService.findById(id);
   }
 
@@ -38,14 +39,14 @@ export class UserController {
 
   @Patch('/:id')
   async update(
-    @Param('id') id: string,
+    @Param() { id }: UUIDDto,
     @Body() userData: UpdateUserdDto,
   ): Promise<UpdateResult> {
     return await this.userService.update(id, userData);
   }
 
   @Delete('/:id')
-  async delete(@Param('id') id: string): Promise<DeleteResult> {
+  async delete(@Param() { id }: UUIDDto): Promise<DeleteResult> {
     return await this.userService.delete(id);
   }
 }
