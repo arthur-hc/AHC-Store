@@ -7,6 +7,7 @@ import {
   Patch,
   Post,
   Query,
+  UseInterceptors,
 } from '@nestjs/common';
 import { CreateOrderDto } from './dto/createOrder.dto';
 import { ListOrderDto } from './dto/listOrder.dto';
@@ -16,6 +17,7 @@ import { OrderService } from './order.service';
 import { UUIDDto } from '../common/dto/UUID.dto';
 import { UpdateOrderDto } from './dto/updateOrder.dto';
 import { DeleteResult, UpdateResult } from 'typeorm';
+import { CacheInterceptor } from '@nestjs/cache-manager';
 
 @Controller('order')
 export class OrderController {
@@ -27,11 +29,13 @@ export class OrderController {
   }
 
   @Get('/:id')
+  @UseInterceptors(CacheInterceptor)
   async findOne(@Param() { id }: UUIDDto): Promise<ListOrderDto | null> {
     return this.orderService.findOne(id);
   }
 
   @Get()
+  @UseInterceptors(CacheInterceptor)
   async findAll(
     @Query() filters: OrderFilterOptionsDto,
   ): Promise<ListOrderDto[]> {

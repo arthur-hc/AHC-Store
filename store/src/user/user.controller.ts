@@ -7,6 +7,7 @@ import {
   Patch,
   Post,
   Query,
+  UseInterceptors,
 } from '@nestjs/common';
 import { CreateUserdDto } from './dto/createUser.dto';
 import { UpdateUserdDto } from './dto/updateUser.dto';
@@ -15,6 +16,7 @@ import { ListUserDto } from './dto/listUser.dto';
 import { UserFilterOptionsDto } from './dto/userFilterOptions.dto';
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { UUIDDto } from '../common/dto/UUID.dto';
+import { CacheInterceptor } from '@nestjs/cache-manager';
 
 @Controller('/user')
 export class UserController {
@@ -26,11 +28,13 @@ export class UserController {
   }
 
   @Get('/:id')
+  @UseInterceptors(CacheInterceptor)
   async findById(@Param() { id }: UUIDDto): Promise<ListUserDto | null> {
     return await this.userService.findById(id);
   }
 
   @Get()
+  @UseInterceptors(CacheInterceptor)
   async findAll(
     @Query() filters: UserFilterOptionsDto,
   ): Promise<ListUserDto[]> {

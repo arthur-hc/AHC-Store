@@ -1,3 +1,4 @@
+import { CacheInterceptor } from '@nestjs/cache-manager';
 import {
   Body,
   Controller,
@@ -7,14 +8,15 @@ import {
   Patch,
   Post,
   Query,
+  UseInterceptors,
 } from '@nestjs/common';
 import { DeleteResult, UpdateResult } from 'typeorm';
+import { UUIDDto } from '../common/dto/UUID.dto';
 import { CreateProductDto } from './dto/createProduct.dto';
 import { ListProductDto } from './dto/listProduct.dto';
 import { ProductFilterOptionsDto } from './dto/productFilterOptions.dto';
 import { UpdateProductDto } from './dto/updateProduct.dto';
 import { ProductService } from './product.service';
-import { UUIDDto } from '../common/dto/UUID.dto';
 
 @Controller('product')
 export class ProductController {
@@ -26,11 +28,13 @@ export class ProductController {
   }
 
   @Get('/:id')
+  @UseInterceptors(CacheInterceptor)
   async findOne(@Param() { id }: UUIDDto): Promise<ListProductDto | null> {
     return await this.productService.findById(id);
   }
 
   @Get()
+  @UseInterceptors(CacheInterceptor)
   async findAll(
     @Query() filters: ProductFilterOptionsDto,
   ): Promise<ListProductDto[]> {
