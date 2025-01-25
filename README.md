@@ -9,6 +9,9 @@ Tecnologies
 - TypeOrm
 - Redis
 
+Architecture:
+-  MVC
+
 Dependences to run:
 
 - Docker
@@ -26,6 +29,8 @@ How run this project:
    - DB_PASSWORD (suggestion root)
    - DB_NAME (suggestion db_store)
    - DB_ADMIN_EMAIL (suggestion admin@root.com)
+   - IV_KEY (suggestion 00112233445566778899aabbccddeeff)
+   - PASS_KEY (suggestion PasswordUsedToGenerateKey)
 5. ➡️ docker-compose up -d
 6. open in browser http://localhost:8081/
 7. use credentials defined in env to access
