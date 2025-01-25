@@ -17,13 +17,18 @@ import { UserFilterOptionsDto } from './dto/userFilterOptions.dto';
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { UUIDDto } from '../common/dto/UUID.dto';
 import { CacheInterceptor } from '@nestjs/cache-manager';
+import { HashPasswordsPipe } from '../common/pipes/HashPasswords.pipe';
 
 @Controller('/user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
-  async create(@Body() userData: CreateUserdDto): Promise<ListUserDto> {
+  async create(
+    @Body() userData: CreateUserdDto,
+    @Body('password', HashPasswordsPipe) password: string,
+  ): Promise<ListUserDto> {
+    userData.password = password;
     return await this.userService.create(userData);
   }
 
@@ -45,7 +50,9 @@ export class UserController {
   async update(
     @Param() { id }: UUIDDto,
     @Body() userData: UpdateUserdDto,
+    @Body('password', HashPasswordsPipe) password: string,
   ): Promise<UpdateResult> {
+    if (password) userData.password = password;
     return await this.userService.update(id, userData);
   }
 
