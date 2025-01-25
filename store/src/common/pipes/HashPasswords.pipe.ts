@@ -1,12 +1,20 @@
-import { InternalServerErrorException, PipeTransform } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  PipeTransform,
+} from '@nestjs/common';
 import { encryptContent } from '../helpers/cryptFunctions';
+import { ConfigService } from '@nestjs/config';
 
+@Injectable()
 export class HashPasswordsPipe implements PipeTransform {
+  constructor(private readonly configService: ConfigService) {}
+
   async transform(passwordToEncrypt: any) {
     if (!passwordToEncrypt) return;
 
-    const ivKey = process.env.IV_KEY;
-    const passKey = process.env.PASS_KEY;
+    const ivKey = this.configService.get<string>('IV_KEY');
+    const passKey = this.configService.get<string>('PASS_KEY');
 
     if (!ivKey || !passKey) {
       console.error('IV_KEY or PASS_KEY not found');
