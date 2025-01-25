@@ -7,6 +7,7 @@ Tecnologies
 - Docker
 - Postgresql
 - TypeOrm
+- Redis
 
 Dependences to run:
 
