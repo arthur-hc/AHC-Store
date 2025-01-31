@@ -7,6 +7,7 @@ import {
   Patch,
   Post,
   Query,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { CreateUserdDto } from './dto/createUser.dto';
@@ -18,6 +19,7 @@ import { DeleteResult, UpdateResult } from 'typeorm';
 import { UUIDDto } from '../common/dto/uuid.dto';
 import { CacheInterceptor } from '@nestjs/cache-manager';
 import { HashPasswordsPipe } from '../common/pipes/HashPasswords.pipe';
+import { AuthGuard } from '../auth/auth.guard';
 
 @Controller('/user')
 export class UserController {
@@ -33,12 +35,14 @@ export class UserController {
   }
 
   @Get('/:id')
+  @UseGuards(AuthGuard)
   @UseInterceptors(CacheInterceptor)
   async findById(@Param() { id }: UUIDDto): Promise<ListUserDto | null> {
     return await this.userService.findById(id);
   }
 
   @Get()
+  @UseGuards(AuthGuard)
   @UseInterceptors(CacheInterceptor)
   async findAll(
     @Query() filters: UserFilterOptionsDto,
@@ -47,6 +51,7 @@ export class UserController {
   }
 
   @Patch('/:id')
+  @UseGuards(AuthGuard)
   async update(
     @Param() { id }: UUIDDto,
     @Body() userData: UpdateUserdDto,
@@ -57,6 +62,7 @@ export class UserController {
   }
 
   @Delete('/:id')
+  @UseGuards(AuthGuard)
   async delete(@Param() { id }: UUIDDto): Promise<DeleteResult> {
     return await this.userService.delete(id);
   }
