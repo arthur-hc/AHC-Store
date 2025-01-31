@@ -15,7 +15,7 @@ import { UserService } from './user.service';
 import { ListUserDto } from './dto/listUser.dto';
 import { UserFilterOptionsDto } from './dto/userFilterOptions.dto';
 import { DeleteResult, UpdateResult } from 'typeorm';
-import { UUIDDto } from '../common/dto/UUID.dto';
+import { UUIDDto } from '../common/dto/uuid.dto';
 import { CacheInterceptor } from '@nestjs/cache-manager';
 import { HashPasswordsPipe } from '../common/pipes/HashPasswords.pipe';
 

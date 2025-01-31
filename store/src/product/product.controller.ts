@@ -11,7 +11,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { DeleteResult, UpdateResult } from 'typeorm';
-import { UUIDDto } from '../common/dto/UUID.dto';
+import { UUIDDto } from '../common/dto/uuid.dto';
 import { CreateProductDto } from './dto/createProduct.dto';
 import { ListProductDto } from './dto/listProduct.dto';
 import { ProductFilterOptionsDto } from './dto/productFilterOptions.dto';
