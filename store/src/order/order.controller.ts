@@ -7,6 +7,7 @@ import {
   Patch,
   Post,
   Query,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { CreateOrderDto } from './dto/createOrder.dto';
@@ -18,8 +19,10 @@ import { UUIDDto } from '../common/dto/uuid.dto';
 import { UpdateOrderDto } from './dto/updateOrder.dto';
 import { DeleteResult, UpdateResult } from 'typeorm';
 import { CacheInterceptor } from '@nestjs/cache-manager';
+import { AuthGuard } from '../auth/auth.guard';
 
 @Controller('order')
+@UseGuards(AuthGuard)
 export class OrderController {
   constructor(private readonly orderService: OrderService) {}
 
