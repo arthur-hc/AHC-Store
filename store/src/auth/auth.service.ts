@@ -3,6 +3,8 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { UserRepository } from '../user/user.repository';
 import { AuthDto } from './dto/auth.dto';
+import { IPayload } from './interfaces/payload.interface';
+import { IAccessToken } from './interfaces/accessToken.interface';
 
 @Injectable()
 export class AuthService {
@@ -11,7 +13,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
   ) {}
-  async authenticate(authenticateData: AuthDto): Promise<any> {
+  async authenticate(authenticateData: AuthDto): Promise<IAccessToken> {
     const { email, password } = authenticateData;
     const result = await this.userRepository.findAll({
       email,
@@ -26,7 +28,9 @@ export class AuthService {
 
     const { id } = userExists;
 
-    const payload = { id, email };
+    if (!id) throw new UnauthorizedException({ message: 'User not found' });
+
+    const payload: IPayload = { sub: id, email };
 
     const token = this.jwtService.sign(payload, {
       secret: this.configService.get<string>('JWT_SECRET'),
