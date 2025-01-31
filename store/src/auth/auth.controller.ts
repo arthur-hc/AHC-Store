@@ -11,7 +11,7 @@ export class AuthController {
   authenticate(
     @Body() authenticateData: AuthDto,
     @Body('password', HashPasswordsPipe) password: string,
-  ) {
+  ): Promise<any> {
     authenticateData.password = password;
     return this.authService.authenticate(authenticateData);
   }
