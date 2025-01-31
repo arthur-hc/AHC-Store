@@ -21,24 +21,22 @@ import { ProductService } from './product.service';
 import { AuthGuard } from '../auth/auth.guard';
 
 @Controller('product')
+@UseGuards(AuthGuard)
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @Post()
-  @UseGuards(AuthGuard)
   async create(@Body() productData: CreateProductDto): Promise<ListProductDto> {
     return await this.productService.create(productData);
   }
 
   @Get('/:id')
-  @UseGuards(AuthGuard)
   @UseInterceptors(CacheInterceptor)
   async findOne(@Param() { id }: UUIDDto): Promise<ListProductDto | null> {
     return await this.productService.findById(id);
   }
 
   @Get()
-  @UseGuards(AuthGuard)
   @UseInterceptors(CacheInterceptor)
   async findAll(
     @Query() filters: ProductFilterOptionsDto,
@@ -47,7 +45,6 @@ export class ProductController {
   }
 
   @Patch('/:id')
-  @UseGuards(AuthGuard)
   async update(
     @Param() { id }: UUIDDto,
     @Body() productData: UpdateProductDto,
@@ -56,7 +53,6 @@ export class ProductController {
   }
 
   @Delete('/:id')
-  @UseGuards(AuthGuard)
   async delete(@Param() { id }: UUIDDto): Promise<DeleteResult> {
     return await this.productService.delete(id);
   }
