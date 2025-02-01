@@ -10,7 +10,8 @@ Tecnologies
 - Redis
 
 Architecture:
--  MVC
+
+- MVC
 
 Dependences to run:
 
@@ -31,6 +32,8 @@ How run this project:
    - DB_ADMIN_EMAIL (suggestion admin@root.com)
    - IV_KEY (suggestion 00112233445566778899aabbccddeeff)
    - PASS_KEY (suggestion PasswordUsedToGenerateKey)
+   - JWT_SECRET (suggestion jwt_secret123)
+   - JWT_EXPIRES_IN (suggestion 60s)
 5. ➡️ docker-compose up -d
 6. open in browser http://localhost:8081/
 7. use credentials defined in env to access

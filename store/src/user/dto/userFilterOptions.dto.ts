@@ -12,4 +12,8 @@ export class UserFilterOptionsDto {
   @IsString()
   @IsOptional()
   email?: string;
+
+  @IsString()
+  @IsOptional()
+  password?: string;
 }
