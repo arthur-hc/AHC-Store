@@ -9,6 +9,7 @@ import {
 } from 'typeorm';
 import { Product } from '../../product/entities/product.entity';
 import { Order } from '../../order/entities/order.entity';
+import { Exclude } from 'class-transformer';
 
 @Entity({ name: 'users' })
 export class User {
@@ -21,6 +22,7 @@ export class User {
   @Column({ name: 'email', length: 70, nullable: false })
   email: string;
 
+  @Exclude()
   @Column({ name: 'password', length: 70, nullable: false })
   password: string;
 

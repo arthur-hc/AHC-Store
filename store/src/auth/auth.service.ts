@@ -1,27 +1,26 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { UserRepository } from '../user/user.repository';
 import { AuthDto } from './dto/auth.dto';
-import { IPayload } from './interfaces/payload.interface';
 import { IAccessToken } from './interfaces/accessToken.interface';
+import { IPayload } from './interfaces/payload.interface';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly userRepository: UserRepository,
     private readonly jwtService: JwtService,
-    private readonly configService: ConfigService,
   ) {}
   async authenticate(authenticateData: AuthDto): Promise<IAccessToken> {
     const { email, password } = authenticateData;
     const result = await this.userRepository.findAll({
       email,
+      password,
     });
 
     const userExists = result[0];
 
-    if (!userExists || userExists.password !== password)
+    if (!userExists)
       throw new UnauthorizedException({
         message: 'User or password incorrect',
       });
