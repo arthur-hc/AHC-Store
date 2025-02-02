@@ -49,18 +49,51 @@ How run Typeorm CLI features:
 To Do Features:
 
 - Users
-  - [ ] Tests
   - [x] Entity
   - [x] Create
   - [x] Read
   - [x] Update
   - [x] Delete
   - [x] Connect with DB
+
 - Products
-  - [ ] Tests
   - [x] Entity
   - [x] Create
   - [x] Read
   - [x] Update
   - [x] Delete
   - [x] Connect with DB
+
+- Orders
+  - [x] Entity
+  - [x] Create
+  - [x] Read
+  - [x] Update
+  - [x] Delete
+  - [x] Connect with DB
+ 
+- Relationships
+   - [x] User => Orders
+   - [x] Orders => Products
+ 
+- Exception Filter
+   - [x] Filter to catch and personalize exceptions
+ 
+- Cache manager
+   - [x] Create cache Manager using Redis
+   - [x] Apply cache manager to endpoint
+ 
+- Create hasher
+   - [x] Create hasher system
+   - [x] Use system to hash senstive data
+ 
+- Auth system
+   - [x] Create authentication system
+   - [x] Create token system generator using JWT
+   - [x] Protect routes using Nest Guards
+ 
+- Logs system
+   - [x] Create logs global system
+   - [x] Use system as interceptor
+   - [x] Generate logs about request, response and operation time
+ 
